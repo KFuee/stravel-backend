@@ -1,0 +1,33 @@
+{
+  "name": "urban-mobility-backend",
+  "version": "1.0.0",
+  "description": "Backend de la guía turística UrbanMobility",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KFuee/urban-mobility-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KFuee/urban-mobility-backend/issues"
+  },
+  "homepage": "https://github.com/KFuee/urban-mobility-backend#readme",
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.1"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
