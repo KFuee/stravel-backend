@@ -4,10 +4,7 @@ const config = require('./index');
 
 const enumerateErrorFormat = winston.format((info) => {
   if (info instanceof Error) {
-    Object.assign(info, {
-      message: info.message,
-      stack: info.stack,
-    });
+    Object.assign(info, { message: info.stack });
   }
   return info;
 });
@@ -22,7 +19,6 @@ const logger = winston.createLogger({
     winston.format.timestamp({
       format: 'DD-MM-YYYY HH:mm:ss',
     }),
-    winston.format.errors({ stack: true }),
     winston.format.splat(),
     winston.format.printf(
       (info) => `${info.timestamp} ${info.level}: ${info.message}`
