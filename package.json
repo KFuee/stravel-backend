@@ -38,6 +38,8 @@
     "http-status": "^1.5.0",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0",
     "winston": "^3.6.0"
   },
   "lint-staged": {

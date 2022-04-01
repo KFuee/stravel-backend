@@ -4,6 +4,9 @@ const httpStatus = require('http-status');
 // config
 const morgan = require('./morgan');
 
+// routes
+const routes = require('../routes');
+
 // middlewares
 const { errorConverter, errorHandler } = require('../middlewares/error');
 
@@ -16,8 +19,8 @@ const app = express();
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
 
-// rutas api
-app.get('/', (_req, res) => res.send('Hello World!'));
+// rutas api v1
+app.use('/v1', routes);
 
 // error 404 si no encuentra ruta
 app.use((_req, _res, next) => {
