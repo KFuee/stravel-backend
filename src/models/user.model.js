@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const { toJSON } = require('./plugins/toJSON.plugin');
+const { toJSON } = require('./plugins');
 
 const userSchema = mongoose.Schema(
   {
@@ -42,7 +42,19 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// plugins
 userSchema.plugin(toJSON);
+
+/**
+ * Comprueba si el email está en uso
+ * @param {string} email - Email a comprobar
+ * @returns {Promise<boolean>} - Devuelve true si el email está en uso
+ */
+// eslint-disable-next-line func-names
+userSchema.statics.isEmailTaken = async function (email) {
+  const user = await this.findOne({ email });
+  return !!user;
+};
 
 const User = mongoose.model('User', userSchema);
 
