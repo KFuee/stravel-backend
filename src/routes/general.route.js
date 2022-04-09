@@ -1,5 +1,7 @@
 const express = require('express');
 
+const generalController = require('../controllers/general.controller');
+
 const router = express.Router();
 
 /**
@@ -19,8 +21,6 @@ const router = express.Router();
  *      '200':
  *        description: Respuesta exitosa
  */
-router.get('/test', (_req, res) => {
-  res.send('La API está funcionando');
-});
+router.get('/test', generalController.test);
 
 module.exports = router;
