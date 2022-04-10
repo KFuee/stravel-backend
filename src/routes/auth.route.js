@@ -1,6 +1,9 @@
 const express = require('express');
 
+const { authValidation } = require('../validation');
 const { authController } = require('../controllers');
+
+const validate = require('../middlewares/validate');
 
 const router = express.Router();
 
@@ -8,7 +11,7 @@ const router = express.Router();
  * @swagger
  * tags:
  *  name: Auth
- *  description: Autenticación
+ *  description: Rutas de autenticación
  */
 
 /**
@@ -18,6 +21,10 @@ const router = express.Router();
  *    tags: [Auth]
  *    description: Registra un nuevo usuario
  */
-router.post('/register', authController.register);
+router.post(
+  '/register',
+  validate(authValidation.register),
+  authController.register
+);
 
 module.exports = router;

@@ -15,6 +15,9 @@ const ApiError = require('../utils/ApiError');
 
 const app = express();
 
+// parsea el body de las peticiones a json
+app.use(express.json());
+
 // use morgan
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
