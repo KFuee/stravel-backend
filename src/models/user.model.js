@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const { toJSON } = require('./plugins');
 
@@ -45,16 +46,27 @@ const userSchema = mongoose.Schema(
 // plugins
 userSchema.plugin(toJSON);
 
+/* eslint-disable func-names */
+
 /**
  * Comprueba si el email está en uso
  * @param {string} email - Email a comprobar
  * @returns {Promise<boolean>} - Devuelve true si el email está en uso
  */
-// eslint-disable-next-line func-names
 userSchema.statics.isEmailTaken = async function (email) {
   const user = await this.findOne({ email });
   return !!user;
 };
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (user.isModified('password')) {
+    const salt = await bcrypt.genSalt(8);
+    user.password = await bcrypt.hash(user.password, salt);
+  }
+
+  next();
+});
 
 const User = mongoose.model('User', userSchema);
 
