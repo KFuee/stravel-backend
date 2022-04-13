@@ -58,6 +58,16 @@ userSchema.statics.isEmailTaken = async function (email) {
   return !!user;
 };
 
+/**
+ * Comprueba si la contraseña es correcta
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
+userSchema.methods.comparePassword = async function (password) {
+  const user = this;
+  return bcrypt.compare(password, user.password);
+};
+
 userSchema.pre('save', async function (next) {
   const user = this;
   if (user.isModified('password')) {

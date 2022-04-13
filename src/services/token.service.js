@@ -6,6 +6,14 @@ const { tokenTypes } = require('../config/tokens');
 
 const { Token } = require('../models');
 
+/**
+ * Genera un token de autenticación
+ * @param {ObjectId} userId
+ * @param {Moment} expires
+ * @param {string} type
+ * @param {string} secret
+ * @returns {string}
+ */
 const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
   const payload = {
     sub: userId,
@@ -17,6 +25,15 @@ const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
   return jwt.sign(payload, secret);
 };
 
+/**
+ * Guarda un token
+ * @param {string} token
+ * @param {ObjectId} userId
+ * @param {Moment} expires
+ * @param {string} type
+ * @param {boolean} blacklisted
+ * @returns {Promise<Token>}
+ */
 const saveToken = async (token, userId, expires, type, blacklisted = false) => {
   const tokenData = {
     token,
@@ -29,6 +46,11 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
   await Token.create(tokenData);
 };
 
+/**
+ * Genera tokens de autenticación necessarios para el inicio de sesión
+ * @param {User} user
+ * @returns {Promise<Object>}
+ */
 const generateAuthTokens = async (user) => {
   const accessTokenExpires = moment().add(
     config.jwt.accessExpirationMinutes,

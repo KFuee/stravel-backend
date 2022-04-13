@@ -4,6 +4,11 @@ const ApiError = require('../utils/ApiError');
 
 const { User } = require('../models');
 
+/**
+ * Crea un usuario
+ * @param {Object} userBody
+ * @returns {Promise<User>}
+ */
 const createUser = async (userBody) => {
   const isEmailTaken = await User.isEmailTaken(userBody.email);
   if (isEmailTaken) {
@@ -13,6 +18,14 @@ const createUser = async (userBody) => {
   return User.create(userBody);
 };
 
+/**
+ * Obtiene usuario por email
+ * @param {string} email
+ * @returns {Promise<User>}
+ */
+const getUserByEmail = async (email) => User.findOne({ email });
+
 module.exports = {
   createUser,
+  getUserByEmail,
 };
