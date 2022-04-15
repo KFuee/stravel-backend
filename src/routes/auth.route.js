@@ -127,6 +127,33 @@ router.post(
  */
 router.post('/login', validate(authValidation.login), authController.login);
 
+/**
+ * @swagger
+ * /auth/logout:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Cierra la sesión de un usuario
+ *
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - refreshToken
+ *            properties:
+ *              refreshToken:
+ *                type: string
+ *            example:
+ *              refreshToken: XXXX.XXXX.XXXX
+ *
+ *    responses:
+ *      "204":
+ *        description: Cerrada sesión correctamente
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ */
 router.post('/logout', validate(authValidation.logout), authController.logout);
 
 module.exports = router;

@@ -42,3 +42,14 @@ components:
           type: number
         message:
           type: string
+
+  responses:
+    NotFound:
+      description: No encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: No encontrado
