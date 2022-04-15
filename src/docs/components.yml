@@ -44,6 +44,16 @@ components:
           type: string
 
   responses:
+    Unauthorized:
+      description: No autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Debes autenticarse para acceder a este recurso
+
     NotFound:
       description: No encontrado
       content:

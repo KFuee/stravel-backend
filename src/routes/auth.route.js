@@ -46,7 +46,7 @@ const router = express.Router();
  *            example:
  *              name: Test Username
  *              email: test@email.com
- *              password: password
+ *              password: password678
  *
  *    responses:
  *      "200":
@@ -101,11 +101,11 @@ router.post(
  *                format: password
  *            example:
  *              email: test@email.com
- *              password: password
+ *              password: password678
  *
  *    responses:
  *      "200":
- *        description: Iniciada sesión correctamente
+ *        description: Sesión iniciada correctamente
  *        content:
  *          application/json:
  *            schema:

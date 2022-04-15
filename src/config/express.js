@@ -1,8 +1,10 @@
 const express = require('express');
+const passport = require('passport');
 const httpStatus = require('http-status');
 
 // config
 const morgan = require('./morgan');
+const passportStrategy = require('./passport');
 
 // routes
 const routes = require('../routes');
@@ -15,12 +17,16 @@ const ApiError = require('../utils/ApiError');
 
 const app = express();
 
-// parsea el body de las peticiones a json
-app.use(express.json());
-
 // use morgan
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
+
+// parsea el body de las peticiones a json
+app.use(express.json());
+
+// autenticación jwt
+app.use(passport.initialize());
+passport.use('jwt', passportStrategy);
 
 // rutas api v1
 app.use('/v1', routes);
