@@ -19,7 +19,56 @@ const router = express.Router();
  * /auth/register:
  *  post:
  *    tags: [Auth]
- *    description: Registra un nuevo usuario
+ *    summary: Registra un nuevo usuario
+ *
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - name
+ *              - email
+ *              - password
+ *            properties:
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
+ *                format: email
+ *                description: debe ser único
+ *              password:
+ *                type: string
+ *                format: password
+ *                minLength: 8
+ *                description: debe contener al menos un número y una letra
+ *            example:
+ *              name: Test Username
+ *              email: test@email.com
+ *              password: password
+ *
+ *    responses:
+ *      "200":
+ *        description: Creado correctamente
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                user:
+ *                  $ref: '#/components/schemas/User'
+ *                tokens:
+ *                  $ref: '#/components/schemas/AuthTokens'
+ *      "401":
+ *        description: Email o contraseña inválido
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Error'
+ *            example:
+ *              code: 401
+ *              message: Email o contraseña inválido
  */
 router.post(
   '/register',
