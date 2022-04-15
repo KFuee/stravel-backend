@@ -76,6 +76,55 @@ router.post(
   authController.register
 );
 
+/**
+ * @swagger
+ * /auth/login:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Inicia la sesión de un usuario
+ *
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - email
+ *              - password
+ *            properties:
+ *              email:
+ *                type: string
+ *                format: email
+ *              password:
+ *                type: string
+ *                format: password
+ *            example:
+ *              email: test@email.com
+ *              password: password
+ *
+ *    responses:
+ *      "200":
+ *        description: Iniciada sesión correctamente
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                user:
+ *                  $ref: '#/components/schemas/User'
+ *                tokens:
+ *                  $ref: '#/components/schemas/AuthTokens'
+ *      "401":
+ *        description: Email o contraseña inválido
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Error'
+ *            example:
+ *              code: 401
+ *              message: Email o contraseña inválido
+ */
 router.post('/login', validate(authValidation.login), authController.login);
 
 router.post('/logout', validate(authValidation.logout), authController.logout);
