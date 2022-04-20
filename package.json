@@ -1,7 +1,7 @@
 {
-  "name": "urban-mobility-backend",
+  "name": "stravel-backend",
   "version": "1.0.0",
-  "description": "Backend de la guía turística UrbanMobility",
+  "description": "Backend de la guía turística Stravel",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",

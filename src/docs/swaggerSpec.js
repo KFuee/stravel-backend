@@ -6,7 +6,7 @@ const { port } = require('../config');
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'UrbanMobility API',
+    title: 'Stravel API',
     version,
     license: {
       name: 'GNU General Public License v3.0',
