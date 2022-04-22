@@ -156,4 +156,39 @@ router.post('/login', validate(authValidation.login), authController.login);
  */
 router.post('/logout', validate(authValidation.logout), authController.logout);
 
+/**
+ * @swagger
+ * /auth/forgot-password:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Solicita un cambio de contraseña
+ *    description: Envía un correo electrónico con un enlace para restablecer la contraseña
+ *
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - email
+ *            properties:
+ *              email:
+ *                type: string
+ *                format: email
+ *            example:
+ *              email: test@email.com
+ *
+ *    responses:
+ *      "204":
+ *        description: Correo electrónico enviado correctamente
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ */
+router.post(
+  '/forgot-password',
+  validate(authValidation.forgotPassword),
+  authController.forgotPassword
+);
+
 module.exports = router;

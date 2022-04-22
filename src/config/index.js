@@ -6,6 +6,9 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 const config = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,
+  client: {
+    url: process.env.CLIENT_URL,
+  },
   mongoose: {
     uri: process.env.MONGODB_URI,
     options: {
@@ -21,6 +24,17 @@ const config = {
       process.env.JWT_RESET_PASSWORD_EXPIRATION_DAYS,
     verifyEmailExpirationMinutes:
       process.env.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
+  },
+  email: {
+    smtp: {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      auth: {
+        user: process.env.SMTP_USERNAME,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    },
+    from: process.env.EMAIL_FROM,
   },
 };
 

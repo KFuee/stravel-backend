@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
+const httpStatus = require('http-status');
 
+const ApiError = require('../utils/ApiError');
 const config = require('../config');
 const { tokenTypes } = require('../config/tokens');
+
+// servicios
+const { userService } = require('.');
 
 // modelos
 const { Token } = require('../models');
@@ -45,6 +50,28 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
   };
 
   await Token.create(tokenData);
+};
+
+/**
+ * Verifica si el token es válido
+ * @param {string} token
+ * @param {string} type
+ * @returns {Promise<Token>}
+ */
+const verifyToken = async (token, type) => {
+  const payload = jwt.verify(token, config.jwt.secret);
+
+  const tokenDoc = await Token.findOne({
+    token,
+    type,
+    user: payload.sub,
+    blacklisted: false,
+  });
+  if (!tokenDoc) {
+    throw new Error('Token no encontrado');
+  }
+
+  return tokenDoc;
 };
 
 /**
@@ -91,6 +118,38 @@ const generateAuthTokens = async (user) => {
   };
 };
 
+/**
+ * Devuelve un token de reseteo de contraseña
+ * @param {string} email
+ * @returns {Promise<string>}
+ */
+const generateResetPasswordToken = async (email) => {
+  const user = await userService.getUserByEmail(email);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Usuario no encontrado');
+  }
+
+  const expiresIn = moment().add(
+    config.jwt.resetPasswordExpirationMinutes,
+    'minutes'
+  );
+  const resetPasswordToken = generateToken(
+    user.id,
+    expiresIn,
+    tokenTypes.RESET_PASSWORD
+  );
+  await saveToken(
+    resetPasswordToken,
+    user.id,
+    expiresIn,
+    tokenTypes.RESET_PASSWORD
+  );
+
+  return resetPasswordToken;
+};
+
 module.exports = {
+  verifyToken,
   generateAuthTokens,
+  generateResetPasswordToken,
 };
