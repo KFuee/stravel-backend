@@ -191,4 +191,56 @@ router.post(
   authController.forgotPassword
 );
 
+/**
+ * @swagger
+ * /auth/reset-password:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Restablece la contraseña de un usuario
+ *
+ *    parameters:
+ *      - in: path
+ *        name: token
+ *        required: true
+ *        schema:
+ *          type: string
+ *        description: Token de restablecimiento de contraseña
+ *
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - password
+ *            properties:
+ *              password:
+ *                type: string
+ *                format: password
+ *                minLength: 8
+ *                description: debe contener al menos un número y una letra
+ *            example:
+ *              email: password678
+ *
+ *    responses:
+ *      "204":
+ *        description: Contraseña restablecida correctamente
+ *      "401":
+ *        description: No se pudo restablecer la contraseña
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/responses/NotFound'
+ *            example:
+ *              code: 401
+ *              message: No se pudo restablecer la contraseña
+ *
+ */
+router.post(
+  '/reset-password',
+  validate(authValidation.resetPassword),
+  authController.resetPassword
+);
+
 module.exports = router;

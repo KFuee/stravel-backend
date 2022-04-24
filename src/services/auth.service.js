@@ -4,7 +4,7 @@ const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
 
 // servicios
-const { userService } = require('.');
+const { userService, tokenService } = require('.');
 
 // modelos
 const { Token } = require('../models');
@@ -45,7 +45,35 @@ const logout = async (refreshToken) => {
   await refreshTokenDoc.remove();
 };
 
+/**
+ * Restablece la contraseña del usuario
+ * @param {string} resetPasswordToken
+ * @param {string} newPassword
+ */
+const resetPassword = async (resetPasswordToken, newPassword) => {
+  try {
+    const resetPasswordTokenDoc = await tokenService.verifyToken(
+      resetPasswordToken,
+      tokenTypes.RESET_PASSWORD
+    );
+
+    const user = await userService.getUserById(resetPasswordTokenDoc.user);
+    if (!user) {
+      throw new Error();
+    }
+
+    await userService.updateUserById(user.id, { password: newPassword });
+    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
+  } catch (err) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      'No se pudo restablecer la contraseña'
+    );
+  }
+};
+
 module.exports = {
   loginWithEmailAndPassword,
   logout,
+  resetPassword,
 };

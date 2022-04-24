@@ -16,7 +16,7 @@ const sendEmail = async (to, subject, content) => {
 
 const sendResetPasswordEmail = async (to, token) => {
   const subject = 'Resetear contraseña';
-  const url = `${config.client.url}/reset-password?token=${token}`;
+  const url = `${config.client.url}/auth/reset-password/${token}`;
   const content = `
     <p>Hola,</p>
     <p>Para resetear tu contraseña, haz click en el siguiente enlace:</p>
