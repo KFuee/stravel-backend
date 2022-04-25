@@ -6,6 +6,7 @@ const { env } = require('../config');
 const generalRoute = require('./general.route');
 const authRoute = require('./auth.route');
 const docsRoute = require('./docs.route');
+const placesRoute = require('./places.route');
 
 const router = express.Router();
 
@@ -17,6 +18,10 @@ const routes = [
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/places',
+    route: placesRoute,
   },
 ];
 
