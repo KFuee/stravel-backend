@@ -13,6 +13,14 @@ const autoComplete = catchAsync(async (req, res) => {
   res.status(200).send(results);
 });
 
+const businessDetails = catchAsync(async (req, res) => {
+  const { id } = req.query;
+  const results = await placesService.businessDetails(id);
+
+  res.status(200).send(results);
+});
+
 module.exports = {
   autoComplete,
+  businessDetails,
 };

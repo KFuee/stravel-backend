@@ -1,6 +1,6 @@
 const express = require('express');
 
-const authenticated = require('../middlewares/authenticated');
+// const authenticated = require('../middlewares/authenticated');
 
 const { placesController } = require('../controllers');
 
@@ -13,6 +13,9 @@ const router = express.Router();
  *  description: Rutas de lugares
  */
 
-router.get('/autocomplete', authenticated(), placesController.autoComplete);
+// TODO: Implementar autenticación
+router.get('/autocomplete', placesController.autoComplete);
+
+router.get('/business', placesController.businessDetails);
 
 module.exports = router;

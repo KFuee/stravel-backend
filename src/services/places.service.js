@@ -13,9 +13,22 @@ const searchAutocomplete = async (text, latitude, longitude) => {
     },
   });
 
+  delete response.data.terms;
+
+  return response.data;
+};
+
+const businessDetails = async (id) => {
+  const response = await axios.get(`/businesses/${id}`, {
+    params: {
+      locale: 'es_ES',
+    },
+  });
+
   return response.data;
 };
 
 module.exports = {
   searchAutocomplete,
+  businessDetails,
 };
