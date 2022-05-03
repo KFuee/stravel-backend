@@ -20,7 +20,15 @@ const businessDetails = catchAsync(async (req, res) => {
   res.status(200).send(results);
 });
 
+const businessReviews = catchAsync(async (req, res) => {
+  const { id } = req.query;
+  const results = await placesService.businessReviews(id);
+
+  res.status(200).send(results.reviews);
+});
+
 module.exports = {
   autoComplete,
   businessDetails,
+  businessReviews,
 };

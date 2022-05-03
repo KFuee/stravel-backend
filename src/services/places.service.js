@@ -28,7 +28,18 @@ const businessDetails = async (id) => {
   return response.data;
 };
 
+const businessReviews = async (id) => {
+  const response = await axios.get(`/businesses/${id}/reviews`, {
+    params: {
+      locale: 'es_ES',
+    },
+  });
+
+  return response.data;
+};
+
 module.exports = {
   searchAutocomplete,
   businessDetails,
+  businessReviews,
 };

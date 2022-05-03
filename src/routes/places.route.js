@@ -18,4 +18,6 @@ router.get('/autocomplete', placesController.autoComplete);
 
 router.get('/business', placesController.businessDetails);
 
+router.get('/reviews', placesController.businessReviews);
+
 module.exports = router;
