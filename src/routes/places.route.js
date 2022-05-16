@@ -16,6 +16,8 @@ const router = express.Router();
 // TODO: Implementar autenticación
 router.get('/autocomplete', placesController.autoComplete);
 
+router.get('/search', placesController.businessesSearch);
+
 router.get('/business', placesController.businessDetails);
 
 router.get('/reviews', placesController.businessReviews);

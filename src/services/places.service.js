@@ -2,6 +2,8 @@ const axios = require('axios');
 
 axios.defaults.baseURL = 'https://api.yelp.com/v3';
 axios.defaults.headers.common.Authorization = `Bearer ${process.env.YELP_API_KEY}`;
+axios.defaults.params = {};
+axios.defaults.params.locale = 'es_ES';
 
 const searchAutocomplete = async (text, latitude, longitude) => {
   const response = await axios.get(`/autocomplete`, {
@@ -9,7 +11,6 @@ const searchAutocomplete = async (text, latitude, longitude) => {
       text,
       latitude,
       longitude,
-      locale: 'es_ES',
     },
   });
 
@@ -18,28 +19,34 @@ const searchAutocomplete = async (text, latitude, longitude) => {
   return response.data;
 };
 
-const businessDetails = async (id) => {
-  const response = await axios.get(`/businesses/${id}`, {
+const businessesSearch = async (term, latitude, longitude, limit) => {
+  const response = await axios.get(`/businesses/search`, {
     params: {
-      locale: 'es_ES',
+      term,
+      latitude,
+      longitude,
+      limit,
     },
   });
 
   return response.data;
 };
 
+const businessDetails = async (id) => {
+  const response = await axios.get(`/businesses/${id}`);
+
+  return response.data;
+};
+
 const businessReviews = async (id) => {
-  const response = await axios.get(`/businesses/${id}/reviews`, {
-    params: {
-      locale: 'es_ES',
-    },
-  });
+  const response = await axios.get(`/businesses/${id}/reviews`);
 
   return response.data;
 };
 
 module.exports = {
   searchAutocomplete,
+  businessesSearch,
   businessDetails,
   businessReviews,
 };

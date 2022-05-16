@@ -13,6 +13,18 @@ const autoComplete = catchAsync(async (req, res) => {
   res.status(200).send(results);
 });
 
+const businessesSearch = catchAsync(async (req, res) => {
+  const { term, latitude, longitude, limit } = req.query;
+  const results = await placesService.businessesSearch(
+    term,
+    latitude,
+    longitude,
+    limit
+  );
+
+  res.status(200).send(results);
+});
+
 const businessDetails = catchAsync(async (req, res) => {
   const { id } = req.query;
   const results = await placesService.businessDetails(id);
@@ -29,6 +41,7 @@ const businessReviews = catchAsync(async (req, res) => {
 
 module.exports = {
   autoComplete,
+  businessesSearch,
   businessDetails,
   businessReviews,
 };
