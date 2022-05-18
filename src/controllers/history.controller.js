@@ -23,6 +23,11 @@ const getAllRecords = catchAsync(async (req, res) => {
 const createRecord = catchAsync(async (req, res) => {
   const { userId, type, item } = req.body;
 
+  const recordExists = await HistoryRecord.findOne({ userId, type, item });
+  if (recordExists) {
+    return;
+  }
+
   const newRecord = await HistoryRecord.create({
     userId,
     type,
