@@ -14,6 +14,8 @@ const router = express.Router();
  */
 
 // TODO: Implementar autenticación
+// TODO: Implementar validación de datos
+// TODO: Documentar
 router.get('/autocomplete', placesController.autoComplete);
 
 router.get('/search', placesController.businessesSearch);

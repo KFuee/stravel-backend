@@ -7,6 +7,7 @@ const generalRoute = require('./general.route');
 const authRoute = require('./auth.route');
 const docsRoute = require('./docs.route');
 const placesRoute = require('./places.route');
+const historyRoute = require('./history.route');
 
 const router = express.Router();
 
@@ -22,6 +23,10 @@ const routes = [
   {
     path: '/places',
     route: placesRoute,
+  },
+  {
+    path: '/history',
+    route: historyRoute,
   },
 ];
 
