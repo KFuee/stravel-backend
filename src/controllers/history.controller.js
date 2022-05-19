@@ -37,7 +37,18 @@ const createRecord = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(newRecord);
 });
 
+const deleteAllRecords = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  await HistoryRecord.deleteMany({ userId });
+
+  res
+    .status(httpStatus.OK)
+    .send({ message: 'Todos los registros fueron eliminados' });
+});
+
 module.exports = {
   getAllRecords,
   createRecord,
+  deleteAllRecords,
 };

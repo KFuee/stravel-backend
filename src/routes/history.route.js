@@ -16,5 +16,6 @@ const router = express.Router();
 // TODO: Documentar
 router.get('/records/:userId', historyController.getAllRecords);
 router.post('/records', historyController.createRecord);
+router.delete('/records/:userId', historyController.deleteAllRecords);
 
 module.exports = router;
