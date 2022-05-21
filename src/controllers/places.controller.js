@@ -1,5 +1,7 @@
+// utils
 const catchAsync = require('../utils/catchAsync');
 
+// services
 const { placesService } = require('../services');
 
 const autoComplete = catchAsync(async (req, res) => {

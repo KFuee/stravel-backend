@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 
 const ApiError = require('../utils/ApiError');
 
-// modelos
+// models
 const { User } = require('../models');
 
 /**
@@ -33,6 +33,12 @@ const getUserById = async (id) => User.findById(id);
  */
 const getUserByEmail = async (email) => User.findOne({ email });
 
+/**
+ * Obtiene todos los usuarios
+ * @returns {Promise<User[]>}
+ */
+const getUsers = async () => User.find();
+
 const updateUserById = async (id, userBody) => {
   const user = await getUserById(id);
   if (!user) {
@@ -52,5 +58,6 @@ module.exports = {
   createUser,
   getUserById,
   getUserByEmail,
+  getUsers,
   updateUserById,
 };

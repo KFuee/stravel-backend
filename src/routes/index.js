@@ -5,6 +5,7 @@ const { env } = require('../config');
 // routers
 const generalRoute = require('./general.route');
 const authRoute = require('./auth.route');
+const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const placesRoute = require('./places.route');
 const historyRoute = require('./history.route');
@@ -32,6 +33,10 @@ const routes = [
   {
     path: '/favourites',
     route: favouritesRoute,
+  },
+  {
+    path: '/users',
+    route: userRoute,
   },
 ];
 
