@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // plugins
 const { toJSON } = require('./plugins');
 
-const historyRecordSchema = mongoose.Schema(
+const favouriteSchema = mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -12,7 +12,7 @@ const historyRecordSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['attraction', 'transport'],
+      enum: ['attraction', 'transportStop', 'transportLine'],
       required: true,
     },
     item: {
@@ -26,8 +26,8 @@ const historyRecordSchema = mongoose.Schema(
 );
 
 // plugins
-historyRecordSchema.plugin(toJSON);
+favouriteSchema.plugin(toJSON);
 
-const HistoryRecord = mongoose.model('HistoryRecord', historyRecordSchema);
+const Favourite = mongoose.model('Favourite', favouriteSchema);
 
-module.exports = HistoryRecord;
+module.exports = Favourite;

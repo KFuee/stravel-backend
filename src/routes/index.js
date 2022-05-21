@@ -8,6 +8,7 @@ const authRoute = require('./auth.route');
 const docsRoute = require('./docs.route');
 const placesRoute = require('./places.route');
 const historyRoute = require('./history.route');
+const favouritesRoute = require('./favourites.route');
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/history',
     route: historyRoute,
+  },
+  {
+    path: '/favourites',
+    route: favouritesRoute,
   },
 ];
 
