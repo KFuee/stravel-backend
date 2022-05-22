@@ -3,7 +3,7 @@ const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 
 // models
-const { User } = require('../models');
+const { User, HistoryRecord, Favourite } = require('../models');
 
 /**
  * Crea un usuario
@@ -24,7 +24,21 @@ const createUser = async (userBody) => {
  * @param {ObjectId} id
  * @returns {Promise<User>}
  */
-const getUserById = async (id) => User.findById(id);
+const getUserById = async (id) => {
+  const user = await User.findById(id);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Usuario no encontrado');
+  }
+
+  const historyCount = await HistoryRecord.count({ userId: id });
+  const favouriteCount = await Favourite.count({ userId: id });
+
+  return {
+    ...user.toJSON(),
+    historyCount,
+    favouriteCount,
+  };
+};
 
 /**
  * Obtiene usuario por email
