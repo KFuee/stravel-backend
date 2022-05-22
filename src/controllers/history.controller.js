@@ -6,7 +6,12 @@ const catchAsync = require('../utils/catchAsync');
 // models
 const { HistoryRecord } = require('../models');
 
-const getAllRecords = catchAsync(async (req, res) => {
+const getAllRecords = catchAsync(async (_req, res) => {
+  const records = await HistoryRecord.find();
+  res.status(httpStatus.OK).json(records);
+});
+
+const getAllUserRecords = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { limit } = req.query;
 
@@ -49,6 +54,7 @@ const deleteAllRecords = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllRecords,
+  getAllUserRecords,
   createRecord,
   deleteAllRecords,
 };
