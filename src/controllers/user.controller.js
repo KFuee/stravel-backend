@@ -24,6 +24,13 @@ const getUsers = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(users);
 });
 
+const updateUser = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const user = await userService.updateUserById(id, req.body);
+
+  res.status(httpStatus.OK).send(user);
+});
+
 const deleteUser = catchAsync(async (req, res) => {
   const { id } = req.params;
   const user = await userService.deleteUserById(id);
@@ -34,5 +41,6 @@ const deleteUser = catchAsync(async (req, res) => {
 module.exports = {
   getUser,
   getUsers,
+  updateUser,
   deleteUser,
 };
