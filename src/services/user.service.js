@@ -39,6 +39,12 @@ const getUserByEmail = async (email) => User.findOne({ email });
  */
 const getUsers = async () => User.find();
 
+/**
+ * Actualiza un usuario
+ * @param {ObjectId} id
+ * @param {Object} userBody
+ * @returns {Promise<User>}
+ */
 const updateUserById = async (id, userBody) => {
   const user = await getUserById(id);
   if (!user) {
@@ -54,10 +60,26 @@ const updateUserById = async (id, userBody) => {
   return user;
 };
 
+/**
+ * Elimina un usuario
+ * @param {ObjectId} id
+ * @returns {Promise<User>}
+ */
+const deleteUserById = async (id) => {
+  const user = await getUserById(id);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Usuario no encontrado');
+  }
+
+  await user.remove();
+  return user;
+};
+
 module.exports = {
   createUser,
   getUserById,
   getUserByEmail,
   getUsers,
   updateUserById,
+  deleteUserById,
 };
