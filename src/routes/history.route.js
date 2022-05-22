@@ -15,6 +15,8 @@ const router = express.Router();
 // TODO: Implementar validación de datos
 // TODO: Documentar
 router.get('/', historyController.getAllRecords);
+router.get('/:id', historyController.getUserRecord);
+
 router.get('/records/:userId', historyController.getAllUserRecords);
 router.post('/records', historyController.createRecord);
 router.delete('/records/:userId', historyController.deleteAllRecords);
