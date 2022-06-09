@@ -6,6 +6,22 @@ const catchAsync = require('../utils/catchAsync');
 // models
 const { Favourite } = require('../models');
 
+const checkIfFavourite = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const { user } = req.query;
+
+  const favourite = await Favourite.findOne({
+    userId: user,
+    'item.id': id,
+  });
+
+  res.status(httpStatus.OK).send({
+    message: !favourite
+      ? 'Elemento no encontrado en favoritos'
+      : 'Elemento encontrado en favoritos',
+  });
+});
+
 const getAllRecords = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { limit } = req.query;
@@ -48,6 +64,7 @@ const deleteAllRecords = catchAsync(async (req, res) => {
 });
 
 module.exports = {
+  checkIfFavourite,
   getAllRecords,
   createRecord,
   deleteAllRecords,

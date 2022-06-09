@@ -60,7 +60,7 @@ const getUsers = async () => User.find();
  * @returns {Promise<User>}
  */
 const updateUserById = async (id, userBody) => {
-  const user = await getUserById(id);
+  const user = await User.findById(id);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Usuario no encontrado');
   }

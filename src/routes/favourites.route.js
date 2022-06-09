@@ -18,4 +18,6 @@ router.get('/:userId', favouritesController.getAllRecords);
 router.post('/', favouritesController.createRecord);
 router.delete('/:userId', favouritesController.deleteAllRecords);
 
+router.get('/check/:id', favouritesController.checkIfFavourite);
+
 module.exports = router;
