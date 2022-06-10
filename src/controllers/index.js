@@ -4,6 +4,7 @@ const userController = require('./user.controller');
 const placesController = require('./places.controller');
 const historyController = require('./history.controller');
 const favouritesController = require('./favourites.controller');
+const transportController = require('./transport.controller');
 
 module.exports = {
   generalController,
@@ -12,4 +13,5 @@ module.exports = {
   placesController,
   historyController,
   favouritesController,
+  transportController,
 };

@@ -1,7 +1,5 @@
 const express = require('express');
 
-// const authenticated = require('../middlewares/authenticated');
-
 const { placesController } = require('../controllers');
 
 const router = express.Router();
