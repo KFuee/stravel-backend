@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 // services
 const { transportService } = require('../services');
 
-const getAllBusStops = catchAsync(async (req, res) => {
+const getAllBusStops = catchAsync(async (_req, res) => {
   const response = await transportService.getAllBusStops();
 
   const busStops = response.result.map((busStop) => {
@@ -30,6 +30,37 @@ const getAllBusStops = catchAsync(async (req, res) => {
   res.status(200).send(busStops);
 });
 
+const getArrivalTimesBusStop = catchAsync(async (req, res) => {
+  const { busStopId } = req.params;
+
+  const response = await transportService.getArrivalTimesBusStop(busStopId);
+
+  const arrivalTimes = response.map((arrivalTime) => {
+    const firstArrivalTime = arrivalTime.primero.substring(
+      0,
+      arrivalTime.primero.indexOf(' ')
+    );
+    const secondArrivalTime = arrivalTime.segundo.substring(
+      0,
+      arrivalTime.segundo.indexOf(' ')
+    );
+
+    return {
+      line: arrivalTime.linea,
+      // Replace ',' '.' and ':' with ''
+      destination: arrivalTime.destino
+        .replaceAll(',', '')
+        .replaceAll('.', '')
+        .replaceAll(':', ''),
+      firstArrivalTime,
+      secondArrivalTime,
+    };
+  });
+
+  return res.status(200).send(arrivalTimes);
+});
+
 module.exports = {
   getAllBusStops,
+  getArrivalTimesBusStop,
 };

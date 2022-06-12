@@ -17,5 +17,9 @@ const router = express.Router();
 // TODO: Implementar validación de datos
 // TODO: Documentar
 router.get('/bus-stops', transportController.getAllBusStops);
+router.get(
+  '/bus-stops/:busStopId/arrival-times',
+  transportController.getArrivalTimesBusStop
+);
 
 module.exports = router;
