@@ -25,9 +25,15 @@ const getAllBusLines = async () => {
   return response.data.result;
 };
 
+const getBusLineById = async (id) => {
+  const response = await instance.get(`/linea-autobus/${id}`);
+  return response.data;
+};
+
 module.exports = {
   getAllBusStops,
   getBusStopById,
   getArrivalTimesBusStop,
   getAllBusLines,
+  getBusLineById,
 };

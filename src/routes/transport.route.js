@@ -24,5 +24,6 @@ router.get(
 );
 
 router.get('/bus-lines', transportController.getAllBusLines);
+router.get('/bus-lines/:id', transportController.getBusLineById);
 
 module.exports = router;

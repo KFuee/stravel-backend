@@ -78,9 +78,36 @@ const getAllBusLines = catchAsync(async (_req, res) => {
   res.status(200).send(busLines);
 });
 
+const getBusLineById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const response = await transportService.getBusLineById(id);
+
+  const busLine = response.title.substring(
+    response.title.lastIndexOf('a') + 2,
+    response.title.length
+  );
+
+  const geometry = response.result[0].geometry.coordinates[0].map(
+    (coordinate) => ({
+      latitude: coordinate[1],
+      longitude: coordinate[0],
+    })
+  );
+
+  const lineStops = response.result.slice(1);
+
+  res.status(200).send({
+    title: busLine,
+    geometry,
+    lineStops,
+  });
+});
+
 module.exports = {
   getAllBusStops,
   getBusStopById,
   getArrivalTimesBusStop,
   getAllBusLines,
+  getBusLineById,
 };
