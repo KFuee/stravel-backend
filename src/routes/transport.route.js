@@ -23,4 +23,6 @@ router.get(
   transportController.getArrivalTimesBusStop
 );
 
+router.get('/bus-lines', transportController.getAllBusLines);
+
 module.exports = router;

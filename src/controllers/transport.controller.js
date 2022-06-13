@@ -68,8 +68,19 @@ const getArrivalTimesBusStop = catchAsync(async (req, res) => {
   return res.status(200).send(arrivalTimes);
 });
 
+const getAllBusLines = catchAsync(async (_req, res) => {
+  const response = await transportService.getAllBusLines();
+
+  const busLines = response.map((busLine) =>
+    busLine.substring(busLine.lastIndexOf('/') + 1, busLine.length)
+  );
+
+  res.status(200).send(busLines);
+});
+
 module.exports = {
   getAllBusStops,
   getBusStopById,
   getArrivalTimesBusStop,
+  getAllBusLines,
 };
