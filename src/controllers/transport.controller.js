@@ -1,5 +1,6 @@
 // utils
 const catchAsync = require('../utils/catchAsync');
+const { substringBusStopTitle } = require('../utils/general');
 
 // services
 const { transportService } = require('../services');
@@ -9,11 +10,7 @@ const getAllBusStops = catchAsync(async (_req, res) => {
 
   const busStops = response.result.map((busStop) => {
     // (688) P. Reyes De Aragón N.º 24 Líneas: 58
-    const title = busStop.title.substring(
-      busStop.title.indexOf(')') + 2,
-      busStop.title.indexOf(' Líneas: ')
-    );
-
+    const title = substringBusStopTitle(busStop.title);
     const titleLines = busStop.title.substring(
       busStop.title.indexOf('Líneas: ') + 8,
       busStop.title.length
@@ -28,6 +25,17 @@ const getAllBusStops = catchAsync(async (_req, res) => {
   });
 
   res.status(200).send(busStops);
+});
+
+const getBusStopById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const response = await transportService.getBusStopById(id);
+  response.title = substringBusStopTitle(response.title);
+  delete response.icon;
+  delete response.destinos;
+
+  res.status(200).send(response);
 });
 
 const getArrivalTimesBusStop = catchAsync(async (req, res) => {
@@ -62,5 +70,6 @@ const getArrivalTimesBusStop = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllBusStops,
+  getBusStopById,
   getArrivalTimesBusStop,
 };
