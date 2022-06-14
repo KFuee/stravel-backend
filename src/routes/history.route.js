@@ -19,6 +19,7 @@ router.get('/:id', historyController.getUserRecord);
 
 router.get('/records/:userId', historyController.getAllUserRecords);
 router.post('/records', historyController.createRecord);
+router.delete('/records/:userId/:recordId', historyController.deleteRecord);
 router.delete('/records/:userId', historyController.deleteAllRecords);
 
 module.exports = router;

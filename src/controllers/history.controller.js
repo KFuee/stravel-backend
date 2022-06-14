@@ -54,6 +54,23 @@ const createRecord = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(newRecord);
 });
 
+const deleteRecord = catchAsync(async (req, res) => {
+  const { userId, recordId } = req.params;
+
+  const record = await HistoryRecord.findOneAndDelete({
+    user: userId,
+    record: recordId,
+  });
+
+  if (!record) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No se encontró el registro');
+  }
+
+  await HistoryRecord.findByIdAndDelete(recordId);
+
+  res.status(httpStatus.OK).send(record);
+});
+
 const deleteAllRecords = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
@@ -69,5 +86,6 @@ module.exports = {
   getAllUserRecords,
   getUserRecord,
   createRecord,
+  deleteRecord,
   deleteAllRecords,
 };
