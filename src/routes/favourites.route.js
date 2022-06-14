@@ -14,8 +14,10 @@ const router = express.Router();
 // TODO: Implementar autenticación
 // TODO: Implementar validación de datos
 // TODO: Documentar
-router.get('/:userId', favouritesController.getAllRecords);
+router.get('/', favouritesController.getAllRecords);
+router.get('/:userId', favouritesController.getAllUserRecords);
 router.post('/', favouritesController.createRecord);
+router.delete('/:userId/:recordId', favouritesController.deleteRecord);
 router.delete('/:userId', favouritesController.deleteAllRecords);
 
 router.get('/check/:id', favouritesController.checkIfFavourite);
