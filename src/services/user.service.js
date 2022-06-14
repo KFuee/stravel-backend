@@ -80,12 +80,12 @@ const updateUserById = async (id, userBody) => {
  * @returns {Promise<User>}
  */
 const deleteUserById = async (id) => {
-  const user = await getUserById(id);
+  const user = await User.findByIdAndDelete(id);
+
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Usuario no encontrado');
   }
 
-  await user.remove();
   return user;
 };
 
