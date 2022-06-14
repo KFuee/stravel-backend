@@ -11,6 +11,12 @@ const getAllRecords = catchAsync(async (_req, res) => {
   res.status(httpStatus.OK).send(records);
 });
 
+const getUserRecord = catchAsync(async (req, res) => {
+  const { userId, recordId } = req.params;
+  const record = await Favourite.findOne({ userId, recordId });
+  res.status(httpStatus.OK).send(record);
+});
+
 const getAllUserRecords = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const { limit } = req.query;
@@ -87,6 +93,7 @@ const deleteAllRecords = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllRecords,
+  getUserRecord,
   getAllUserRecords,
   checkIfFavourite,
   createRecord,

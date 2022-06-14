@@ -16,6 +16,7 @@ const router = express.Router();
 // TODO: Documentar
 router.get('/', favouritesController.getAllRecords);
 router.get('/:userId', favouritesController.getAllUserRecords);
+router.get('/:userId/:recordId', favouritesController.getUserRecord);
 router.post('/', favouritesController.createRecord);
 router.delete('/:userId/:recordId', favouritesController.deleteRecord);
 router.delete('/:userId', favouritesController.deleteAllRecords);
